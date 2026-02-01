@@ -88,12 +88,12 @@ kill <PID>
 
 ## Deployment
 
-This website is automatically deployed to GitHub Pages from the `main` branch. Simply push changes to the repository:
+This website is automatically deployed to GitHub Pages from the `master` branch. Simply push changes to the repository:
 
 ```bash
 git add .
 git commit -m "Your commit message"
-git push origin main
+git push origin master
 ```
 
 Changes will be live at: https://wangyikang1996.github.io
