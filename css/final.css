@@ -150,6 +150,7 @@ section {
   flex-wrap: wrap;
   max-width: 1040px;
   gap: 40px;
+}
 
 .hero-left {
   width: 380px;
