@@ -124,6 +124,18 @@ a:hover {
   border-bottom: none;
 }
 
+/* ─── SCROLL REVEAL ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* ─── SECTIONS ─── */
 section {
   padding: 60px 30px;
@@ -138,6 +150,28 @@ section {
   flex-wrap: wrap;
   max-width: 1040px;
   gap: 40px;
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -100px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(100, 255, 218, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme="light"] .hero::before {
+  background: radial-gradient(circle, rgba(9, 105, 218, 0.06) 0%, transparent 70%);
+}
+
+.hero > * {
+  position: relative;
+  z-index: 1;
 }
 
 .hero-left {
@@ -270,22 +304,41 @@ section {
   margin-top: 8px;
   font-family: var(--font-mono);
   font-size: 14px;
-  color: var(--accent);
+  color: var(--bg-primary);
   padding: 12px 28px;
+  background: var(--accent);
   border: 1px solid var(--accent);
   border-radius: 6px;
+  font-weight: 600;
   transition: all 0.2s;
 }
 
 .download-resume:hover {
-  background: var(--accent-dim);
-  transform: none;
-  opacity: 1;
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(100, 255, 218, 0.25);
+}
+
+[data-theme="light"] .download-resume:hover {
+  box-shadow: 0 4px 16px rgba(9, 105, 218, 0.25);
 }
 
 /* ─── SECTION HEADERS ─── */
 .header {
   margin-bottom: 32px;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+  border-radius: 2px;
 }
 
 .title {
@@ -500,11 +553,30 @@ section {
   box-shadow: 0 8px 30px var(--hover-shadow);
 }
 
+.case-study-item a:first-child {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+
+.case-study-item a:first-child::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, var(--bg-card) 100%);
+  pointer-events: none;
+}
+
 .case-study-item img {
   width: 100%;
   height: 180px;
   object-fit: cover;
   display: block;
+  transition: transform 0.4s ease;
+}
+
+.case-study-item:hover img {
+  transform: scale(1.05);
 }
 
 .case-study-item h5 {

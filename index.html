@@ -10,8 +10,8 @@
 <meta name="description" content="Yikang Wang - Software Engineer at Indeed. Recommendation systems, search ranking, ML engineering.">
 <meta property="og:description" content="Yikang Wang - Software Engineer at Indeed. Recommendation systems, search ranking, ML engineering.">
 <meta name="twitter:description" content="Yikang Wang - Software Engineer at Indeed. Recommendation systems, search ranking, ML engineering.">
-<meta property="og:image" content="https://wangyikang1996.github.io/img/porfolios.png">
-<meta name="twitter:image" content="https://wangyikang1996.github.io/img/porfolios.png">
+<meta property="og:image" content="https://wangyikang1996.github.io/img/portfolios.png">
+<meta name="twitter:image" content="https://wangyikang1996.github.io/img/portfolios.png">
 <link rel="icon" href="https://wangyikang1996.github.io/img/logo.png" type="image/x-icon">
 <link rel="shortcut icon" href="https://wangyikang1996.github.io/img/logo.png" type="image/x-icon">
 <link rel="stylesheet" href="css/final.css?v=2">
@@ -39,7 +39,7 @@
 
 
             <section style="padding-top: 90px;" id="scroll-element" data-scroll-index="0">
-    <div class="hero">
+    <div class="hero reveal">
         <div class="hero-left">
             <div class="terminal-tag">SOFTWARE ENGINEER</div>
             <h1 class="hero-name">Yikang Wang</h1>
@@ -89,7 +89,7 @@
                   </svg>
                 </a>
             </div>
-            <a href="Yikang%20Wang-Resume-%20Nov%202025.docx.pdf" target="_blank" class="download-resume">
+            <a href="Yikang_Wang_Resume.pdf" target="_blank" class="download-resume">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position:relative;top:2px;margin-right:8px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Resume</a>
         </div>
         <div class="hero-right">
@@ -97,7 +97,7 @@
                 <div class="card-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="card-title">about.md</span></div>
                 <div class="card-body">
                     <p>Software Engineer at <strong>Indeed</strong>, building employer-side recommendation retrieval systems that deliver qualified candidates to power sourcing and premium job experiences.</p>
-                    <p>4+ years of progressive engineering experience spanning <strong>recommendation systems</strong>, <strong>search ranking</strong>, <strong>ML infrastructure</strong>, and <strong>full-stack development</strong>. Skilled in designing and executing data-driven A/B testing initiatives at scale.</p>
+                    <p>5 years of progressive engineering experience spanning <strong>recommendation systems</strong>, <strong>search ranking</strong>, <strong>ML infrastructure</strong>, and <strong>full-stack development</strong>. Skilled in designing and executing data-driven A/B testing initiatives at scale.</p>
                     <p><strong>Education:</strong> MS Business Analytics &amp; BS Computer Science from UT Austin.</p>
                 </div>
             </div>
@@ -107,7 +107,7 @@
 
 
             <section data-scroll-index="1">
-    <div class="experience">
+    <div class="experience reveal">
         <div class="header">
             <h1 class="title">Experience</h1>
             <h2 class="subtitle">Career Timeline</h2>
@@ -208,7 +208,7 @@
 
 
             <section data-scroll-index="2">
-    <div class="process">
+    <div class="process reveal">
         <div class="header">
             <h1 class="title">Tech Stack</h1>
             <h2 class="subtitle">Tools &amp; Technologies</h2>
@@ -287,7 +287,7 @@
 
 
             <section data-scroll-index="3">
-    <div class="case-studies">
+    <div class="case-studies reveal">
         <div class="header">
             <h1 class="title">Projects</h1>
             <h2 class="subtitle">Selected Works</h2>
@@ -366,7 +366,7 @@
     </div>
 
     <div class="footer-right">
-        <span class="footer-copy">&copy; 2025 Yikang Wang</span>
+        <span class="footer-copy">&copy; 2026 Yikang Wang</span>
         <a href="#" style="color: var(--accent); text-decoration: none;" data-scroll-goto="0">&gt; top</a>
     </div>
 </footer>
@@ -388,6 +388,19 @@
             easing: 'ease-in-out'
         });
     });
+
+    // Scroll reveal
+    (function() {
+        var reveals = document.querySelectorAll('.reveal');
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+        reveals.forEach(function(el) { observer.observe(el); });
+    })();
 
     // Theme toggle
     (function() {
