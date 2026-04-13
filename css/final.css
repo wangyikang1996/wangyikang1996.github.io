@@ -131,7 +131,7 @@ a:hover {
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
-.reveal.active {
+.reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -282,17 +282,23 @@ section {
   margin-top: 8px;
   font-family: var(--font-mono);
   font-size: 14px;
-  color: var(--accent);
+  color: var(--bg-primary);
   padding: 12px 28px;
+  background: var(--accent);
   border: 1px solid var(--accent);
   border-radius: 6px;
+  font-weight: 600;
   transition: all 0.2s;
 }
 
 .download-resume:hover {
-  background: var(--accent-dim);
-  transform: none;
-  opacity: 1;
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(100, 255, 218, 0.25);
+}
+
+[data-theme="light"] .download-resume:hover {
+  box-shadow: 0 4px 16px rgba(9, 105, 218, 0.25);
 }
 
 /* ─── SECTION HEADERS ─── */
