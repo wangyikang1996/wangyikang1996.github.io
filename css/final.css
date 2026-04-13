@@ -32,7 +32,7 @@
   --card-header: #eaeef2;
   --border: #d0d7de;
   --text-primary: #1f2328;
-  --text-secondary: #59636e;
+  --text-secondary: #4d5561;
   --text-muted: #8b949e;
   --accent: #0969da;
   --accent-dim: rgba(9, 105, 218, 0.08);
@@ -698,7 +698,7 @@ footer a {
   section {
     padding: 48px 20px !important;
   }
-  #scroll-element {
+  #about {
     padding-top: 90px !important;
   }
   .case-studies-wrapper {
@@ -713,7 +713,7 @@ footer a {
 }
 
 @media all and (max-width: 460px) {
-  #about {
+  #about-link {
     display: none;
   }
   .main-navigation-link {
@@ -740,11 +740,3 @@ footer a {
   background: var(--text-muted);
 }
 
-/* ─── LEGACY OVERRIDES ─── */
-.logo {
-  display: none;
-}
-
-.process-wrapper, .process-item {
-  display: none;
-}
