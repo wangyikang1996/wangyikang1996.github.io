@@ -1,105 +1,81 @@
-# Yikang Wang - Portfolio Website
+# Yikang Wang — Portfolio Website
 
-Personal portfolio website showcasing data analytics, machine learning, and software engineering projects.
+Personal portfolio for Yikang Wang, Software Engineer at Indeed. Built with React + Vite, deployed to GitHub Pages.
 
-## Overview
+Live: https://wangyikang1996.github.io
 
-This is a static HTML portfolio website hosted on GitHub Pages. It features:
-- Personal introduction and background
-- Skills and expertise in data analytics
-- Academic projects and case studies
-- Resume download
-- Links to LinkedIn, Medium, and GitHub
+## Stack
 
-## Prerequisites
+- React 18
+- Vite 5
+- Vanilla CSS (custom-property tokens, dark/light theme)
+- Deployed via GitHub Actions → GitHub Pages
 
-- Python 3.x (usually pre-installed on macOS/Linux)
-- A modern web browser
-
-## Setup Instructions
-
-### 1. Clone the Repository
+## Local development
 
 ```bash
-git clone https://github.com/wangyikang1996/wangyikang1996.github.io.git
-cd wangyikang1996.github.io
+npm install
+npm run dev
 ```
 
-### 2. Run Locally
+Vite dev server runs on http://localhost:5173.
 
-The website is a static site, so you can run it using Python's built-in HTTP server:
+## Production build
 
 ```bash
-python3 -m http.server 8000
+npm run build
+npm run preview   # serves dist/ on http://localhost:4173
 ```
-
-This will start a local server on port 8000.
-
-### 3. Access the Website
-
-Open your web browser and navigate to:
-```
-http://localhost:8000
-```
-
-## Stopping the Server
-
-To stop the local server:
-
-**Option 1:** Press `Ctrl+C` in the terminal where the server is running.
-
-**Option 2:** If the server is running in the background, find and kill the process:
-```bash
-lsof -ti:8000 | xargs kill
-```
-
-Or find the process ID manually:
-```bash
-lsof -ti:8000
-kill <PID>
-```
-
-## Project Structure
-
-```
-.
-├── index.html          # Main homepage
-├── css/                # Stylesheets
-│   ├── final.css
-│   └── normalize.css
-├── js/                 # JavaScript files
-│   ├── jquery-1.js
-│   ├── scrollIt.js
-│   └── stickUp.js
-├── img/                # Images and assets
-├── svg/                # SVG icons
-├── cope/               # Doodle Image Recognition project page
-├── tedx/               # Food Nutrition Website project page
-├── 360pro/             # Action Movie Analysis project page
-└── Yikang Wang-Resume- Nov 2025.docx.pdf  # Resume file
-```
-
-## Technologies Used
-
-- HTML5
-- CSS3
-- JavaScript (jQuery, scrollIt, stickUp)
-- Static site generation (Hugo)
 
 ## Deployment
 
-This website is automatically deployed to GitHub Pages from the `master` branch. Simply push changes to the repository:
+Pushes to the `master` branch trigger `.github/workflows/deploy.yml`, which:
 
-```bash
-git add .
-git commit -m "Your commit message"
-git push origin master
+1. Runs `npm ci` and `npm run build`
+2. Copies legacy project subdirectories (`360pro/`, `cope/`, `tedx/`, `img/`, `svg/`, `categories/`, `tags/`, `*.pdf`, `sitemap.xml`, `index.xml`) into `dist/` so old links continue to resolve
+3. Publishes `dist/` to GitHub Pages via the official `actions/deploy-pages` action
+
+The `dist/` directory is gitignored — the workflow rebuilds it on every push.
+
+## Project structure
+
+```
+.
+├── index.html              # Vite entry — root document
+├── src/
+│   ├── main.jsx            # ReactDOM.createRoot
+│   ├── App.jsx             # Theme state + direction wrapper
+│   ├── data.js             # Single source of truth for portfolio content
+│   ├── components/
+│   │   ├── TerminalDirection.jsx
+│   │   └── Icons.jsx
+│   ├── hooks/
+│   │   ├── useReveal.js    # IntersectionObserver-based scroll reveal
+│   │   └── useLocalState.js
+│   └── styles/
+│       ├── base.css        # Tokens, reset, reveal animations
+│       └── terminal.css    # Terminal-direction theme
+├── public/
+│   └── favicon.png
+├── vite.config.js
+├── package.json
+│
+├── .github/workflows/
+│   └── deploy.yml          # Build + deploy pipeline
+│
+├── 360pro/  cope/  tedx/   # Legacy project case-study pages (kept as-is)
+├── img/  svg/              # Legacy assets referenced by case studies
+├── categories/  tags/      # Legacy taxonomy XML
+├── *.pdf                   # Resume + project PDFs
+└── sitemap.xml  index.xml  # SEO files
 ```
 
-Changes will be live at: https://wangyikang1996.github.io
+## Updating content
 
-## Notes
+All portfolio copy lives in `src/data.js` (`SITE` object). Edit there, then:
 
-- This is a static website, so changes to files are immediately reflected after a browser refresh
-- No build step is required
-- All assets are served from the repository root
+```bash
+npm run build && npm run preview
+```
+
+Push to `master` to deploy.
