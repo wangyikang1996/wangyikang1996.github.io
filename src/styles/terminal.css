@@ -55,13 +55,21 @@ body[data-direction='terminal'][data-theme='light'] {
   text-decoration: none;
   color: inherit;
 }
-.term-nav .brand .dot {
-  width: 8px;
-  height: 8px;
+/* YW monogram avatar — headshot placeholder in the brand area */
+.term-nav .brand .avatar {
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 12px color-mix(in oklab, var(--accent) 70%, transparent);
-  animation: term-pulse 1.8s ease-in-out infinite;
+  background: color-mix(in oklab, var(--accent) 20%, var(--card));
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
 }
 @keyframes term-pulse {
   0%,
@@ -88,6 +96,20 @@ body[data-direction='terminal'][data-theme='light'] {
 .term-nav .links a::before {
   content: '# ';
   opacity: 0.45;
+}
+/* Active section indicator: amber dot after the label of the visible section */
+.term-nav .links a.active {
+  color: var(--fg);
+}
+.term-nav .links a.active::after {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-left: 5px;
+  vertical-align: 2px;
 }
 .term-nav .theme-toggle {
   background: transparent;
@@ -270,9 +292,17 @@ body[data-direction='terminal'][data-theme='light'] {
   grid-template-columns: 140px 1fr;
   gap: 8px 18px;
   max-width: 620px;
-  margin-top: 22px;
+  margin: 22px 0 0;
   color: var(--muted);
   font-size: 13px;
+}
+/* Using semantic <dl><dt><dd> wrapped in <div>: the wrapper collapses so dt/dd sit directly in the grid. */
+.term-about .kv > div {
+  display: contents;
+}
+.term-about .kv dt,
+.term-about .kv dd {
+  margin: 0;
 }
 .term-about .kv .k {
   color: var(--accent);
@@ -283,6 +313,28 @@ body[data-direction='terminal'][data-theme='light'] {
 }
 .term-about .kv a:hover {
   text-decoration: underline;
+}
+/* Email row: link + inline $ copy button */
+.term-about .email-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.copy-btn {
+  font-family: inherit;
+  font-size: 11px;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  background: var(--card);
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.15s;
+}
+.copy-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 /* Experience timeline */
@@ -498,6 +550,76 @@ body[data-direction='terminal'][data-theme='light'] {
   color: var(--muted);
   font-size: 11px;
   margin-left: auto;
+}
+
+/* Small note under the project grid explaining the stub links */
+.proj-note {
+  margin: 22px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.proj-note .c {
+  color: var(--accent);
+  margin-right: 2px;
+}
+.proj-note a {
+  color: var(--link);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.proj-note a:hover {
+  text-decoration: underline;
+}
+
+/* Keyboard-shortcut hint toast (bottom-left). Fades in, lingers, fades out. */
+.kbd-hint {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 100;
+  font-family: inherit;
+  font-size: 11px;
+  color: var(--muted);
+  background: color-mix(in oklab, var(--bg) 88%, transparent);
+  border: 1px solid var(--line);
+  padding: 7px 12px;
+  border-radius: 6px;
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  animation: kbd-fade 8s ease-in-out forwards;
+}
+.kbd-hint .k {
+  display: inline-block;
+  background: var(--line);
+  color: var(--accent);
+  padding: 1px 5px;
+  border-radius: 3px;
+  margin: 0 2px;
+  font-weight: 600;
+  border: 1px solid var(--muted);
+}
+@keyframes kbd-fade {
+  0% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kbd-hint {
+    animation: none;
+  }
 }
 
 /* Footer */
