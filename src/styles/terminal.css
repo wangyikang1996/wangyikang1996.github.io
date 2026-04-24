@@ -132,18 +132,6 @@ body[data-direction='terminal'][data-theme='light'] {
   padding: 80px 0 60px;
   position: relative;
 }
-.term-hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(to right, var(--line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
-  background-size: 44px 44px;
-  mask-image: radial-gradient(ellipse 70% 60% at 20% 40%, black 30%, transparent 80%);
-  opacity: 0.35;
-  pointer-events: none;
-}
 .term-hero .prompt {
   color: var(--muted);
   font-size: 13px;
