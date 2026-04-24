@@ -19,11 +19,13 @@ describe('Icons', () => {
     expect(svg).toHaveAttribute('width', '12');
   });
 
-  it('IconSun renders 8 tick lines', () => {
+  it('IconSun renders with a center circle and ray path', () => {
     const { container } = render(<IconSun />);
     const svg = getSvg(container);
     expect(svg).toHaveAttribute('width', '16');
-    expect(container.querySelectorAll('line')).toHaveLength(8);
+    // Cleaner stroke-only icon: one <circle> for the sun + one <path> for the rays.
+    expect(container.querySelector('circle')).toBeInTheDocument();
+    expect(container.querySelector('path')).toBeInTheDocument();
   });
 
   it('IconMoon renders at default size 16', () => {

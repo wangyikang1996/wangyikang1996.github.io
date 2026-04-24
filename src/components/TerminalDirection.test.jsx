@@ -44,7 +44,9 @@ describe('TerminalDirection', () => {
       `mailto:${SITE.links.email}`,
     );
     expect(screen.getByRole('link', { name: /Resume/i })).toHaveAttribute('href', SITE.links.resume);
-    expect(screen.getByRole('link', { name: /GitHub/i })).toHaveAttribute('href', SITE.links.github);
+    // GitHub appears twice (hero CTA + project-note link) — assert at least one resolves to SITE.links.github.
+    const githubLinks = screen.getAllByRole('link', { name: /GitHub/i });
+    expect(githubLinks.some((l) => l.getAttribute('href') === SITE.links.github)).toBe(true);
     expect(screen.getByRole('link', { name: /LinkedIn/i })).toHaveAttribute('href', SITE.links.linkedin);
   });
 
@@ -109,5 +111,47 @@ describe('TerminalDirection', () => {
     expect(screen.getByText(new RegExp(year))).toBeInTheDocument();
     const emailLinks = screen.getAllByRole('link', { name: SITE.links.email });
     expect(emailLinks.length).toBeGreaterThan(0);
+  });
+
+  it('renders the YW monogram avatar in the nav brand', () => {
+    const { container } = renderWith();
+    const avatar = container.querySelector('.term-nav .brand .avatar');
+    expect(avatar).toBeInTheDocument();
+    expect(avatar).toHaveTextContent('YW');
+  });
+
+  it('renders the project-links note pointing to GitHub', () => {
+    renderWith();
+    expect(screen.getByText(/real write-ups coming soon/i)).toBeInTheDocument();
+  });
+
+  it('shows the $ copy email button and switches to ✓ copied after clicking', async () => {
+    const user = userEvent.setup();
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    // jsdom's navigator.clipboard is a read-only getter — use defineProperty.
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText },
+      configurable: true,
+      writable: true,
+    });
+    renderWith();
+    const btn = screen.getByRole('button', { name: /copy email/i });
+    expect(btn).toHaveTextContent('$ copy');
+    await user.click(btn);
+    expect(writeText).toHaveBeenCalledWith(SITE.links.email);
+    expect(btn).toHaveTextContent(/copied/);
+  });
+
+  it('renders the keyboard-shortcut hint by default (fresh session)', () => {
+    sessionStorage.clear();
+    renderWith();
+    expect(screen.getByRole('button', { name: /dismiss keyboard hint/i })).toBeInTheDocument();
+  });
+
+  it('suppresses the keyboard hint when sessionStorage flag is set', () => {
+    sessionStorage.setItem('yw.kbd-hint-dismissed', '1');
+    renderWith();
+    expect(screen.queryByRole('button', { name: /dismiss keyboard hint/i })).not.toBeInTheDocument();
+    sessionStorage.clear();
   });
 });
