@@ -194,7 +194,6 @@ export default function TerminalDirection({ theme, setTheme }) {
           <span><span className="k">role</span> SWE II</span>
           <span><span className="k">team</span> Employer Recommendation</span>
           <span><span className="k">edu</span> MS BA · BS CS, UT Austin</span>
-          <span><span className="k">uptime</span> 5y</span>
         </div>
         <div className="cta reveal d4">
           <a className="btn primary" href={`mailto:${S.links.email}`}>→ Get in touch</a>
