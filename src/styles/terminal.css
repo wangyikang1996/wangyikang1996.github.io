@@ -56,20 +56,13 @@ body[data-direction='terminal'][data-theme='light'] {
   text-decoration: none;
   color: inherit;
 }
-/* YW monogram avatar — headshot placeholder in the brand area */
+/* Headshot avatar in the brand area */
 .term-nav .brand .avatar {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: color-mix(in oklab, var(--accent) 20%, var(--card));
   border: 1px solid var(--accent);
-  color: var(--accent);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  object-fit: cover;
   flex-shrink: 0;
 }
 @keyframes term-pulse {
