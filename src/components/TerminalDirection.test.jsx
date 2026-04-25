@@ -113,11 +113,13 @@ describe('TerminalDirection', () => {
     expect(emailLinks.length).toBeGreaterThan(0);
   });
 
-  it('renders the YW monogram avatar in the nav brand', () => {
+  it('renders the headshot avatar in the nav brand', () => {
     const { container } = renderWith();
     const avatar = container.querySelector('.term-nav .brand .avatar');
     expect(avatar).toBeInTheDocument();
-    expect(avatar).toHaveTextContent('YW');
+    expect(avatar.tagName).toBe('IMG');
+    expect(avatar).toHaveAttribute('src', '/avatar.jpg');
+    expect(avatar).toHaveAttribute('alt', 'Yikang Wang');
   });
 
   it('renders the project-links note pointing to GitHub', () => {
