@@ -43,6 +43,7 @@ body[data-direction='terminal'][data-theme='light'] {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 24px; /* minimum spacing — prevents brand from kissing the links */
   padding: 14px 32px;
   max-width: 1080px;
   margin: 0 auto;
@@ -632,15 +633,137 @@ body[data-direction='terminal'][data-theme='light'] {
   color: var(--accent);
 }
 
+/* Hide the long brand prompt earlier — at this range it crowds the nav links. */
+@media (max-width: 880px) {
+  .term-nav .brand > span:not(.avatar) {
+    display: none;
+  }
+}
+
+/* Tablet + phone — up to ~680px */
 @media (max-width: 680px) {
-  .term-exp .entry {
-    grid-template-columns: 1fr;
-    gap: 10px;
+  .term .container {
+    padding: 0 20px;
+  }
+
+  /* Nav: shrink gutters, drop link prefix, smaller text */
+  .term-nav-inner {
+    padding: 12px 20px;
+    gap: 12px;
   }
   .term-nav .links {
     gap: 14px;
   }
   .term-nav .links a {
     font-size: 12px;
+  }
+  .term-nav .links a::before {
+    content: '';
+  }
+
+  /* Hero */
+  .term-hero {
+    padding: 50px 0 40px;
+  }
+  .term-hero h1 {
+    font-size: clamp(36px, 8vw, 58px);
+  }
+  .term-hero .meta {
+    font-size: 11.5px;
+    gap: 6px 14px;
+  }
+  .term-hero .btn {
+    padding: 8px 12px;
+    font-size: 12.5px;
+  }
+
+  /* Section chrome */
+  .term-sec {
+    padding: 44px 0;
+  }
+  .term-sec .sec-head {
+    margin-bottom: 24px;
+    gap: 10px;
+  }
+  .term-sec .sec-head h2 {
+    font-size: 22px;
+  }
+  .term-sec .sec-head .file {
+    display: none; /* too noisy at this width */
+  }
+
+  /* About: tighter kv grid */
+  .term-about .kv {
+    grid-template-columns: 88px 1fr;
+    gap: 6px 12px;
+    font-size: 12.5px;
+  }
+
+  /* Experience: stack range + content (already had this) */
+  .term-exp .entry {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .term-exp .entry .range {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding-top: 0;
+  }
+  .term-exp .entry .range .org {
+    display: inline;
+    margin-bottom: 0;
+  }
+
+  /* Footer: stack columns */
+  .term-foot {
+    padding: 30px 0 40px;
+  }
+  .term-foot .inner {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* Keyboard hint: hide on touch devices — no hardware keyboard */
+  .kbd-hint {
+    display: none;
+  }
+}
+
+/* Small phones — iPhone SE / Pixel class */
+@media (max-width: 420px) {
+  .term .container {
+    padding: 0 16px;
+  }
+  .term-nav-inner {
+    padding: 10px 16px;
+  }
+  .term-nav .links {
+    gap: 11px;
+  }
+  .term-nav .links a {
+    font-size: 11.5px;
+  }
+  .term-nav .theme-toggle span {
+    display: none; /* keep the sun/moon icon only */
+  }
+  .term-nav .theme-toggle {
+    padding: 6px;
+  }
+
+  .term-hero h1 {
+    font-size: clamp(32px, 9vw, 48px);
+  }
+
+  /* Fully stack about kv — label above value */
+  .term-about .kv {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .term-about .kv dt {
+    margin-top: 10px;
+  }
+  .term-about .kv > div:first-child dt {
+    margin-top: 0;
   }
 }
