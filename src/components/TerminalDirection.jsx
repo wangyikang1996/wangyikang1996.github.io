@@ -187,8 +187,8 @@ export default function TerminalDirection({ theme, setTheme }) {
         </h1>
         <p className="tagline reveal d2">
           Building recommendation systems & search infrastructure at{' '}
-          <a href="https://www.indeed.com/">Indeed</a>. I like making systems that quietly do the
-          right thing at scale.
+          <a href="https://www.indeed.com/">Indeed</a>. I like making systems that do the right
+          thing at scale.
         </p>
         <div className="meta reveal d3">
           <span><span className="k">role</span> SWE II</span>
