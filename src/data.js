@@ -12,7 +12,7 @@ export const SITE = {
     email: 'yikang.wang@utexas.edu',
     linkedin: 'https://www.linkedin.com/in/wangyikang1996/',
     github: 'https://github.com/wangyikang1996',
-    resume: 'https://wangyikang1996.github.io/Yikang_Wang_Resume.pdf',
+    resume: 'https://wangyikang1996.github.io/Yikang_Wang_Resume_April_2026.pdf',
   },
   experience: [
     {
