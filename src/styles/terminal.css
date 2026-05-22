@@ -556,6 +556,71 @@ body[data-direction='terminal'][data-theme='light'] {
   text-decoration: underline;
 }
 
+/* Writing */
+.term-writing {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.term-writing .w {
+  border-top: 1px solid var(--line);
+  padding: 18px 0;
+}
+.term-writing .w:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+.term-writing .w:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.term-writing .w h3 {
+  margin: 0 0 6px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.term-writing .w p {
+  margin: 0;
+  color: color-mix(in oklab, var(--fg) 80%, transparent);
+  font-size: 13px;
+  line-height: 1.6;
+  max-width: 640px;
+}
+
+/* Voices / testimonials */
+.term-voices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+}
+.term-voices .q {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 20px;
+  background: var(--card);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.term-voices .q blockquote {
+  margin: 0;
+  color: color-mix(in oklab, var(--fg) 88%, transparent);
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+.term-voices .q .who {
+  color: var(--accent);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.term-voices .q .who::before {
+  content: '// ';
+  opacity: 0.7;
+}
+
 /* Keyboard-shortcut hint toast (bottom-left). Fades in, lingers, fades out. */
 .kbd-hint {
   position: fixed;

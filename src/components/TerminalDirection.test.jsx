@@ -26,7 +26,7 @@ describe('TerminalDirection', () => {
   it('renders nav links for every section', () => {
     renderWith();
     const nav = screen.getByRole('navigation');
-    ['about', 'experience', 'stack', 'projects'].forEach((label) => {
+    ['about', 'experience', 'stack', 'projects', 'writing', 'voices'].forEach((label) => {
       expect(within(nav).getByText(label)).toHaveAttribute('href', `#${label}`);
     });
   });
@@ -34,7 +34,7 @@ describe('TerminalDirection', () => {
   it('renders the hero name and tagline', () => {
     renderWith();
     expect(screen.getByRole('heading', { level: 1, name: /Yikang Wang/i })).toBeInTheDocument();
-    expect(screen.getByText(/Building recommendation systems/i)).toBeInTheDocument();
+    expect(screen.getByText(/I build the retrieval and ranking systems/i)).toBeInTheDocument();
   });
 
   it('renders resume / github / linkedin / email CTAs from SITE', () => {
@@ -124,7 +124,22 @@ describe('TerminalDirection', () => {
 
   it('renders the project-links note pointing to GitHub', () => {
     renderWith();
-    expect(screen.getByText(/real write-ups coming soon/i)).toBeInTheDocument();
+    expect(screen.getByText(/Early projects from school and Kaggle/i)).toBeInTheDocument();
+  });
+
+  it('renders a writing entry per SITE.writing item', () => {
+    renderWith();
+    SITE.writing.forEach((w) => {
+      expect(screen.getByRole('heading', { level: 3, name: w.title })).toBeInTheDocument();
+    });
+  });
+
+  it('renders a testimonial per SITE.testimonials item with attribution', () => {
+    renderWith();
+    SITE.testimonials.forEach((t) => {
+      expect(screen.getByText(t.quote)).toBeInTheDocument();
+      expect(screen.getByText(t.who)).toBeInTheDocument();
+    });
   });
 
   it('shows the $ copy email button and switches to ✓ copied after clicking', async () => {
