@@ -57,7 +57,15 @@ function useKeyboardShortcuts() {
       }
 
       if (!armed) return;
-      const map = { a: 'about', e: 'experience', s: 'stack', p: 'projects', h: 'top' };
+      const map = {
+        a: 'about',
+        e: 'experience',
+        s: 'stack',
+        p: 'projects',
+        w: 'writing',
+        v: 'voices',
+        h: 'top',
+      };
       const id = map[e.key];
       if (id) {
         document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -108,7 +116,8 @@ function KeyboardHint() {
     <button className="kbd-hint" type="button" onClick={dismiss} aria-label="Dismiss keyboard hint">
       <span className="k">g</span> then <span className="k">h</span>ome ·{' '}
       <span className="k">a</span>bout · <span className="k">e</span>xp ·{' '}
-      <span className="k">s</span>tack · <span className="k">p</span>rojects
+      <span className="k">s</span>tack · <span className="k">p</span>rojects ·{' '}
+      <span className="k">w</span>riting · <span className="k">v</span>oices
     </button>
   );
 }
@@ -138,7 +147,7 @@ function CopyEmailButton({ email }) {
   );
 }
 
-const NAV_SECTIONS = ['about', 'experience', 'stack', 'projects'];
+const NAV_SECTIONS = ['about', 'experience', 'stack', 'projects', 'writing', 'voices'];
 
 export default function TerminalDirection({ theme, setTheme }) {
   useReveal();
@@ -180,19 +189,20 @@ export default function TerminalDirection({ theme, setTheme }) {
         <div className="prompt reveal">
           <span className="c">$</span> whoami
         </div>
-        <div className="role reveal d1">Software Engineer · Austin, TX</div>
+        <div className="role reveal d1">
+          Software Engineer · Search &amp; Recommendation Systems · Austin, TX
+        </div>
         <h1 className="reveal d1">
           Yikang Wang
           <span className="cursor" aria-hidden="true" />
         </h1>
         <p className="tagline reveal d2">
-          Building recommendation systems & search infrastructure at{' '}
-          <a href="https://www.indeed.com/">Indeed</a>. I like making systems that do the right
-          thing at scale.
+          I build the retrieval and ranking systems behind search and recommendations at{' '}
+          <a href="https://www.indeed.com/">Indeed</a>, and keep them fast and reliable.
         </p>
         <div className="meta reveal d3">
           <span><span className="k">role</span> SWE II</span>
-          <span><span className="k">team</span> Employer Recommendation</span>
+          <span><span className="k">focus</span> Retrieval · Ranking · A/B testing</span>
           <span><span className="k">edu</span> MS BA · BS CS, UT Austin</span>
         </div>
         <div className="cta reveal d4">
@@ -217,18 +227,19 @@ export default function TerminalDirection({ theme, setTheme }) {
           <div className="term-about">
             <p className="reveal">
               I'm a software engineer focused on <strong>recommendation retrieval</strong> and{' '}
-              <strong>search ranking</strong>. Today I work on the employer side of Indeed — building
-              systems that surface qualified candidates for sourcing and the premium job experience.
+              <strong>search ranking</strong>. I work on the employer side of Indeed, building the
+              systems that surface the right candidates to the right employers at scale.
             </p>
             <p className="reveal d1">
-              5 years of progressive engineering across recsys, ranking, ML infrastructure, and
-              full-stack. I'm happiest where data, product, and systems design overlap — designing
-              experiments, shipping retrieval changes, and paying down debt.
+              Five years in, I've gone from shipping features to owning retrieval changes end to end
+              and driving work across teams. I ramp fast on unfamiliar systems, write design docs
+              people outside the project can actually follow, and like being where data, product,
+              and systems design overlap.
             </p>
             <dl className="kv reveal d2">
               <div><dt className="k">location</dt><dd>Austin, TX</dd></div>
               <div><dt className="k">current</dt><dd>Indeed · SWE II</dd></div>
-              <div><dt className="k">focus</dt><dd>Recsys retrieval, search ranking, A/B testing</dd></div>
+              <div><dt className="k">now</dt><dd>{S.now}</dd></div>
               <div><dt className="k">education</dt><dd>{S.edu}</dd></div>
               <div>
                 <dt className="k">email</dt>
@@ -334,13 +345,48 @@ export default function TerminalDirection({ theme, setTheme }) {
             ))}
           </div>
           <p className="proj-note reveal">
-            <span className="c">$</span> These links point to old project pages — real write-ups
-            coming soon.{' '}
+            <span className="c">$</span> Early projects from school and Kaggle. Source on{' '}
             <a href={S.links.github} target="_blank" rel="noreferrer">
               GitHub <IconExternal size={10} />
-            </a>{' '}
-            has the source.
+            </a>
+            .
           </p>
+        </div>
+      </section>
+
+      <section id="writing" className="term-sec">
+        <div className="container">
+          <div className="sec-head reveal">
+            <span className="num">05</span>
+            <h2>Writing</h2>
+            <span className="file">$ ls ~/notes</span>
+          </div>
+          <div className="term-writing">
+            {S.writing.map((w, i) => (
+              <article key={w.title} className={cx('w reveal', `d${i}`)}>
+                <h3>{w.title}</h3>
+                <p>{w.blurb}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="voices" className="term-sec">
+        <div className="container">
+          <div className="sec-head reveal">
+            <span className="num">06</span>
+            <h2>What colleagues say</h2>
+            <span className="file">$ cat feedback.log</span>
+          </div>
+          <div className="term-voices">
+            {S.testimonials.map((t, i) => (
+              <figure key={i} className={cx('q reveal', `d${i}`)}>
+                <blockquote>{t.quote}</blockquote>
+                <figcaption className="who">{t.who}</figcaption>
+              </figure>
+            ))}
+          </div>
         </div>
       </section>
 
