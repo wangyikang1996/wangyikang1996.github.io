@@ -232,7 +232,7 @@ export default function TerminalDirection({ theme, setTheme }) {
             </p>
             <p className="reveal d1">
               Five years in, I've gone from shipping features to owning retrieval changes end to end
-              and driving work across teams. I ramp fast on unfamiliar systems, write design docs
+              and driving work across teams. I ramp fast on various crucial systems, write design docs
               people outside the project can actually follow, and like being where data, product,
               and systems design overlap.
             </p>

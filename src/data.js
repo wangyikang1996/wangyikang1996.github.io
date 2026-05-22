@@ -115,7 +115,7 @@ export const SITE = {
       blurb: 'Guardrails, sample size, and which metrics actually matter.',
     },
     {
-      title: 'Getting productive in an unfamiliar codebase fast',
+      title: 'Getting productive in various crucial codebases fast',
       blurb: 'A repeatable approach I reach for on every new system.',
     },
   ],
