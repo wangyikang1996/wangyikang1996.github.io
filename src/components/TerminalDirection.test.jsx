@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, within } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { act, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import TerminalDirection from './TerminalDirection';
 import { SITE } from '../data';
@@ -14,6 +14,14 @@ beforeEach(() => {
       disconnect() {}
     },
   );
+});
+
+afterEach(() => {
+  // The copy tests stub navigator.clipboard via defineProperty; drop it so the
+  // stub doesn't leak to later tests.
+  if (Object.getOwnPropertyDescriptor(navigator, 'clipboard')?.configurable) {
+    delete navigator.clipboard;
+  }
 });
 
 const renderWith = (theme = 'dark') => {
@@ -157,5 +165,46 @@ describe('TerminalDirection', () => {
     await user.click(btn);
     expect(writeText).toHaveBeenCalledWith(SITE.links.email);
     expect(btn).toHaveTextContent(/copied/);
+  });
+
+  it('leaves the copy button unchanged when clipboard access is blocked', async () => {
+    const user = userEvent.setup();
+    const writeText = vi.fn().mockRejectedValue(new Error('blocked'));
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText },
+      configurable: true,
+      writable: true,
+    });
+    renderWith();
+    const btn = screen.getByRole('button', { name: /copy email/i });
+    await user.click(btn);
+    expect(writeText).toHaveBeenCalledWith(SITE.links.email);
+    expect(btn).toHaveTextContent('$ copy');
+  });
+
+  it('reverts the copy button back to "$ copy" after 2s', async () => {
+    vi.useFakeTimers();
+    try {
+      const writeText = vi.fn().mockResolvedValue(undefined);
+      Object.defineProperty(navigator, 'clipboard', {
+        value: { writeText },
+        configurable: true,
+        writable: true,
+      });
+      renderWith();
+      const btn = screen.getByRole('button', { name: /copy email/i });
+      // Native click + async act flushes the awaited clipboard write and state update
+      // without entangling userEvent's own timers with the fake clock.
+      await act(async () => {
+        btn.click();
+      });
+      expect(btn).toHaveTextContent(/copied/);
+      act(() => {
+        vi.advanceTimersByTime(2000);
+      });
+      expect(btn).toHaveTextContent('$ copy');
+    } finally {
+      vi.useRealTimers();
+    }
   });
 });

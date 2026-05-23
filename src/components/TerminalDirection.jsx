@@ -1,86 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { SITE } from '../data';
 import { useReveal } from '../hooks/useReveal';
+import { useActiveSection } from '../hooks/useActiveSection';
+import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts';
 import { IconArrow, IconExternal, IconSun, IconMoon } from './Icons';
 
 const cx = (...a) => a.filter(Boolean).join(' ');
-
-// Active-section scroll spy: watches each nav-targetable section and reports
-// which one is roughly centered in the viewport. Used to highlight the matching
-// nav link with an accent dot.
-function useActiveSection(ids) {
-  const [active, setActive] = useState(null);
-
-  useEffect(() => {
-    if (!('IntersectionObserver' in window)) return;
-
-    const els = ids.map((id) => document.getElementById(id)).filter(Boolean);
-    if (els.length === 0) return;
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        // Pick the first currently-intersecting entry (top-most in viewport).
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-        if (visible[0]) setActive(visible[0].target.id);
-      },
-      { rootMargin: '-20% 0px -70% 0px', threshold: 0 },
-    );
-
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
-  }, [ids.join('|')]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  return active;
-}
-
-// `g`+key GitHub-style navigation. Typing `g` then h/a/e/s/p scrolls to the
-// matching section. Ignored while typing in inputs.
-function useKeyboardShortcuts() {
-  useEffect(() => {
-    let armed = false;
-    let disarm;
-
-    const onKey = (e) => {
-      const tgt = e.target;
-      if (tgt instanceof HTMLInputElement || tgt instanceof HTMLTextAreaElement) return;
-      if (tgt && tgt.isContentEditable) return;
-
-      if (e.key === 'g') {
-        armed = true;
-        clearTimeout(disarm);
-        disarm = setTimeout(() => {
-          armed = false;
-        }, 800);
-        return;
-      }
-
-      if (!armed) return;
-      const map = {
-        a: 'about',
-        e: 'experience',
-        s: 'stack',
-        p: 'projects',
-        w: 'writing',
-        v: 'voices',
-        h: 'top',
-      };
-      const id = map[e.key];
-      if (id) {
-        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-      }
-      armed = false;
-      clearTimeout(disarm);
-    };
-
-    window.addEventListener('keydown', onKey);
-    return () => {
-      window.removeEventListener('keydown', onKey);
-      clearTimeout(disarm);
-    };
-  }, []);
-}
 
 // Inline client-side copy-to-clipboard for the email address.
 function CopyEmailButton({ email }) {
