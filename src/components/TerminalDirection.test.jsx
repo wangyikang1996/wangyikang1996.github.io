@@ -158,17 +158,4 @@ describe('TerminalDirection', () => {
     expect(writeText).toHaveBeenCalledWith(SITE.links.email);
     expect(btn).toHaveTextContent(/copied/);
   });
-
-  it('renders the keyboard-shortcut hint by default (fresh session)', () => {
-    sessionStorage.clear();
-    renderWith();
-    expect(screen.getByRole('button', { name: /dismiss keyboard hint/i })).toBeInTheDocument();
-  });
-
-  it('suppresses the keyboard hint when sessionStorage flag is set', () => {
-    sessionStorage.setItem('yw.kbd-hint-dismissed', '1');
-    renderWith();
-    expect(screen.queryByRole('button', { name: /dismiss keyboard hint/i })).not.toBeInTheDocument();
-    sessionStorage.clear();
-  });
 });

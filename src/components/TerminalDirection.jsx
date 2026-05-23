@@ -82,46 +82,6 @@ function useKeyboardShortcuts() {
   }, []);
 }
 
-// Renders the floating keyboard hint once per browser session. Auto-fades
-// after ~8s via CSS; also dismissable with a click or Escape.
-function KeyboardHint() {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    try {
-      if (sessionStorage.getItem('yw.kbd-hint-dismissed') === '1') return;
-    } catch {
-      /* sessionStorage may be blocked — show the hint anyway */
-    }
-    setVisible(true);
-    const onKey = (e) => {
-      if (e.key === 'Escape') setVisible(false);
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, []);
-
-  if (!visible) return null;
-
-  const dismiss = () => {
-    setVisible(false);
-    try {
-      sessionStorage.setItem('yw.kbd-hint-dismissed', '1');
-    } catch {
-      /* noop */
-    }
-  };
-
-  return (
-    <button className="kbd-hint" type="button" onClick={dismiss} aria-label="Dismiss keyboard hint">
-      <span className="k">g</span> then <span className="k">h</span>ome ·{' '}
-      <span className="k">a</span>bout · <span className="k">e</span>xp ·{' '}
-      <span className="k">s</span>tack · <span className="k">p</span>rojects ·{' '}
-      <span className="k">w</span>riting · <span className="k">v</span>oices
-    </button>
-  );
-}
-
 // Inline client-side copy-to-clipboard for the email address.
 function CopyEmailButton({ email }) {
   const [copied, setCopied] = useState(false);
@@ -157,8 +117,6 @@ export default function TerminalDirection({ theme, setTheme }) {
 
   return (
     <div className="site term">
-      <KeyboardHint />
-
       <nav className="term-nav">
         <div className="term-nav-inner">
           <a className="brand" href="#top" aria-label="Back to top">
