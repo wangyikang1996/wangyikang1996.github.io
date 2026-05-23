@@ -2,7 +2,8 @@
 body[data-direction='terminal'][data-theme='dark'] {
   --bg: #0b0c0e;
   --fg: #d8dde1;
-  --muted: #6f7680;
+  /* #7c828c hits ~5:1 on --bg (WCAG AA); the old #6f7680 was 4.27:1. */
+  --muted: #7c828c;
   --line: #1a1d22;
   --card: #0f1114;
   --accent: #ffb347;
