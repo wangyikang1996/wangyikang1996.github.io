@@ -45,7 +45,7 @@ export default function TerminalDirection({ theme, setTheme }) {
       <nav className="term-nav">
         <div className="term-nav-inner">
           <a className="brand" href="#top" aria-label="Back to top">
-            <img className="avatar" src="/avatar.jpg" alt="Yikang Wang" />
+            <img className="avatar" src="/avatar.jpg" alt="Yikang Wang" width="28" height="28" />
             <span>yw@wangyikang:~$</span>
           </a>
           <div className="links" role="menubar">
