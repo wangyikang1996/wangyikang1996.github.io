@@ -21,5 +21,5 @@ export function useReveal() {
     );
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
-  });
+  }, []); // run once on mount; content is static so the reveal set is fixed
 }
