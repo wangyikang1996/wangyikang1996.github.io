@@ -12,9 +12,7 @@ export default [
       sourceType: 'module',
       globals: { ...globals.browser },
       parserOptions: {
-        ecmaVersion: 'latest',
         ecmaFeatures: { jsx: true },
-        sourceType: 'module',
       },
     },
     plugins: {
@@ -33,26 +31,7 @@ export default [
     // Test + setup files run under Vitest globals (globals: true in vite.config.js).
     files: ['**/*.test.{js,jsx}', 'src/test/**/*.{js,jsx}'],
     languageOptions: {
-      globals: {
-        ...globals.node,
-        describe: 'readonly',
-        it: 'readonly',
-        test: 'readonly',
-        expect: 'readonly',
-        beforeEach: 'readonly',
-        afterEach: 'readonly',
-        beforeAll: 'readonly',
-        afterAll: 'readonly',
-        vi: 'readonly',
-        suite: 'readonly',
-      },
-    },
-  },
-  {
-    // Build/test config files run in Node.
-    files: ['*.config.js'],
-    languageOptions: {
-      globals: { ...globals.node },
+      globals: { ...globals.node, ...globals.vitest },
     },
   },
 ];
