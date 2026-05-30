@@ -1,7 +1,14 @@
 import { useEffect } from 'react';
+import { SITE } from '../data';
 
-// `g`+key GitHub-style navigation. Press `g` then a/e/s/p/w/v to jump to a
-// section, or `g` then h to return to the top. Ignored while typing in inputs.
+// `g`+key GitHub-style navigation. Press `g` then a section's shortcut to jump
+// to it, or `g` then h to return to the top. Ignored while typing in inputs.
+// The chord map is derived from SITE.sections so it never drifts from the nav.
+const SHORTCUT_MAP = {
+  ...Object.fromEntries(SITE.sections.map((s) => [s.shortcut, s.id])),
+  h: 'top',
+};
+
 export function useKeyboardShortcuts() {
   useEffect(() => {
     let armed = false;
@@ -22,16 +29,7 @@ export function useKeyboardShortcuts() {
       }
 
       if (!armed) return;
-      const map = {
-        a: 'about',
-        e: 'experience',
-        s: 'stack',
-        p: 'projects',
-        w: 'writing',
-        v: 'voices',
-        h: 'top',
-      };
-      const id = map[e.key];
+      const id = SHORTCUT_MAP[e.key];
       if (id) {
         document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
       }

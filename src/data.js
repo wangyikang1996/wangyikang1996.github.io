@@ -1,15 +1,20 @@
 // Single source of truth for portfolio content.
 export const SITE = {
   name: 'Yikang Wang',
-  handle: 'yw',
-  role: 'Software Engineer',
   location: 'Austin, TX',
-  tagline:
-    'I build the retrieval and ranking systems behind search and recommendations at Indeed, and keep them fast and reliable.',
-  intro:
-    'Software engineer focused on recommendation retrieval and search ranking. I work on the employer side of Indeed, building the systems that surface the right candidates to the right employers at scale.',
   now: 'going deeper on retrieval evaluation and A/B test design, and writing up what I learn.',
   edu: 'MS Business Analytics & BS Computer Science, UT Austin',
+  // Ordered list of page sections — single source of truth for the nav links,
+  // each section header (number / title / terminal file label), and the
+  // `g`+<key> keyboard shortcuts. Add or reorder a section here only.
+  sections: [
+    { id: 'about', num: '01', title: 'About', file: '$ whoami --verbose', shortcut: 'a' },
+    { id: 'experience', num: '02', title: 'Experience', file: '$ git log --author=yw --oneline', shortcut: 'e' },
+    { id: 'stack', num: '03', title: 'Stack', file: '$ cat deps.json | jq keys', shortcut: 's' },
+    { id: 'projects', num: '04', title: 'Projects', file: '$ find ~/projects -name "*.md" -exec cat', shortcut: 'p' },
+    { id: 'writing', num: '05', title: 'Writing', file: '$ ls ~/notes', shortcut: 'w' },
+    { id: 'voices', num: '06', title: 'What colleagues say', file: '$ cat feedback.log', shortcut: 'v' },
+  ],
   links: {
     email: 'yikang.wang@utexas.edu',
     linkedin: 'https://www.linkedin.com/in/wangyikang1996/',

@@ -32,25 +32,46 @@ function CopyEmailButton({ email }) {
   );
 }
 
-const NAV_SECTIONS = ['about', 'experience', 'stack', 'projects', 'writing', 'voices'];
+// Section header block (NN · Title · terminal file label), shared by every section.
+function SectionHead({ num, title, file }) {
+  return (
+    <div className="sec-head reveal">
+      <span className="num">{num}</span>
+      <h2>{title}</h2>
+      <span className="file">{file}</span>
+    </div>
+  );
+}
+
+const SECTIONS = SITE.sections;
+const SECTION_IDS = SECTIONS.map((s) => s.id);
+const SEC = Object.fromEntries(SECTIONS.map((s) => [s.id, s]));
 
 export default function TerminalDirection({ theme, setTheme }) {
   useReveal();
   useKeyboardShortcuts();
-  const active = useActiveSection(NAV_SECTIONS);
+  const active = useActiveSection(SECTION_IDS);
   const S = SITE;
 
   return (
     <div className="site term">
-      <nav className="term-nav">
+      <a className="sr-only sr-only-focusable" href="#about">
+        Skip to content
+      </a>
+      <nav className="term-nav" aria-label="Section navigation">
         <div className="term-nav-inner">
           <a className="brand" href="#top" aria-label="Back to top">
-            <img className="avatar" src="/avatar.jpg" alt="Yikang Wang" width="28" height="28" />
+            <img className="avatar" src="/avatar.jpg" alt={S.name} width="28" height="28" />
             <span>yw@wangyikang:~$</span>
           </a>
-          <div className="links" role="menubar">
-            {NAV_SECTIONS.map((id) => (
-              <a key={id} href={`#${id}`} className={cx(active === id && 'active')}>
+          <div className="links">
+            {SECTIONS.map(({ id }) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                className={cx(active === id && 'active')}
+                aria-current={active === id ? 'true' : undefined}
+              >
                 {id}
               </a>
             ))}
@@ -76,7 +97,7 @@ export default function TerminalDirection({ theme, setTheme }) {
           Software Engineer · Search &amp; Recommendation Systems · Austin, TX
         </div>
         <h1 className="reveal d1">
-          Yikang Wang
+          {S.name}
           <span className="cursor" aria-hidden="true" />
         </h1>
         <p className="tagline reveal d2">
@@ -102,11 +123,7 @@ export default function TerminalDirection({ theme, setTheme }) {
 
       <section id="about" className="term-sec">
         <div className="container">
-          <div className="sec-head reveal">
-            <span className="num">01</span>
-            <h2>About</h2>
-            <span className="file">$ whoami --verbose</span>
-          </div>
+          <SectionHead {...SEC.about} />
           <div className="term-about">
             <p className="reveal">
               I'm a software engineer focused on <strong>recommendation retrieval</strong> and{' '}
@@ -120,7 +137,7 @@ export default function TerminalDirection({ theme, setTheme }) {
               and systems design overlap.
             </p>
             <dl className="kv reveal d2">
-              <div><dt className="k">location</dt><dd>Austin, TX</dd></div>
+              <div><dt className="k">location</dt><dd>{S.location}</dd></div>
               <div><dt className="k">current</dt><dd>Indeed · SWE II</dd></div>
               <div><dt className="k">now</dt><dd>{S.now}</dd></div>
               <div><dt className="k">education</dt><dd>{S.edu}</dd></div>
@@ -138,11 +155,7 @@ export default function TerminalDirection({ theme, setTheme }) {
 
       <section id="experience" className="term-sec">
         <div className="container">
-          <div className="sec-head reveal">
-            <span className="num">02</span>
-            <h2>Experience</h2>
-            <span className="file">$ git log --author=yw --oneline</span>
-          </div>
+          <SectionHead {...SEC.experience} />
           <div className="term-exp">
             {S.experience.map((e, i) => (
               <article key={i} className="entry reveal">
@@ -172,11 +185,7 @@ export default function TerminalDirection({ theme, setTheme }) {
 
       <section id="stack" className="term-sec">
         <div className="container">
-          <div className="sec-head reveal">
-            <span className="num">03</span>
-            <h2>Stack</h2>
-            <span className="file">$ cat deps.json | jq keys</span>
-          </div>
+          <SectionHead {...SEC.stack} />
           <div className="term-stack">
             {Object.entries(S.stack).map(([k, items], idx) => (
               <div key={k} className={cx('grp reveal', `d${idx}`)}>
@@ -197,11 +206,7 @@ export default function TerminalDirection({ theme, setTheme }) {
 
       <section id="projects" className="term-sec">
         <div className="container">
-          <div className="sec-head reveal">
-            <span className="num">04</span>
-            <h2>Projects</h2>
-            <span className="file">$ find ~/projects -name "*.md" -exec cat</span>
-          </div>
+          <SectionHead {...SEC.projects} />
           <div className="term-projects">
             {S.projects.map((p, i) => (
               <a
@@ -239,11 +244,7 @@ export default function TerminalDirection({ theme, setTheme }) {
 
       <section id="writing" className="term-sec">
         <div className="container">
-          <div className="sec-head reveal">
-            <span className="num">05</span>
-            <h2>Writing</h2>
-            <span className="file">$ ls ~/notes</span>
-          </div>
+          <SectionHead {...SEC.writing} />
           <div className="term-writing">
             {S.writing.map((w, i) => (
               <article key={w.title} className={cx('w reveal', `d${i}`)}>
@@ -257,11 +258,7 @@ export default function TerminalDirection({ theme, setTheme }) {
 
       <section id="voices" className="term-sec">
         <div className="container">
-          <div className="sec-head reveal">
-            <span className="num">06</span>
-            <h2>What colleagues say</h2>
-            <span className="file">$ cat feedback.log</span>
-          </div>
+          <SectionHead {...SEC.voices} />
           <div className="term-voices">
             {S.testimonials.map((t, i) => (
               <figure key={i} className={cx('q reveal', `d${i}`)}>
@@ -276,7 +273,7 @@ export default function TerminalDirection({ theme, setTheme }) {
       <footer className="term-foot">
         <div className="container inner">
           <div>
-            © {new Date().getFullYear()} Yikang Wang ·{' '}
+            © {new Date().getFullYear()} {S.name} ·{' '}
             <a href={`mailto:${S.links.email}`}>{S.links.email}</a>
           </div>
           <div>
