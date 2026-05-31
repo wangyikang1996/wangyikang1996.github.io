@@ -1,0 +1,28 @@
+version: 2
+updates:
+  # Keep GitHub Actions versions current (avoids deprecated runtimes).
+  # Grouping all actions into one PR keeps the coupled Pages actions
+  # (upload-pages-artifact + deploy-pages) bumping together.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: ci
+    groups:
+      github-actions:
+        patterns:
+          - '*'
+
+  # Keep npm dependencies current. One grouped PR for everything so no
+  # bump (prod, dev, or major) silently escapes into its own PR.
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: deps
+    groups:
+      npm:
+        patterns:
+          - '*'
