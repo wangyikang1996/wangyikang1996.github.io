@@ -61,7 +61,7 @@ export default function TerminalDirection({ theme, setTheme }) {
       <nav className="term-nav" aria-label="Section navigation">
         <div className="term-nav-inner">
           <a className="brand" href="#top" aria-label="Back to top">
-            <img className="avatar" src="/avatar.jpg" alt={S.name} width="28" height="28" />
+            <img className="avatar" src="/avatar.jpg" alt="" aria-hidden="true" width="28" height="28" />
             <span>yw@wangyikang:~$</span>
           </a>
           <div className="links">
@@ -167,9 +167,22 @@ export default function TerminalDirection({ theme, setTheme }) {
                   <h3>{e.role}</h3>
                   <div className="team">{e.team}</div>
                   <ul>
-                    {e.bullets.map((b, j) => (
-                      <li key={j}>{b}</li>
-                    ))}
+                    {e.bullets.map((b, j) => {
+                      // "Phase Name (dates): description" → bold phase line above the
+                      // description; bullets without the prefix render as plain text.
+                      const m = b.match(/^([^:]{3,70}?)\s*\(([^)]+)\):\s*(.*)$/);
+                      return m ? (
+                        <li key={j}>
+                          <span className="ph">
+                            {m[1]}
+                            <span className="when">{m[2]}</span>
+                          </span>
+                          {m[3]}
+                        </li>
+                      ) : (
+                        <li key={j}>{b}</li>
+                      );
+                    })}
                   </ul>
                   <div className="tags">
                     {e.tags.map((t) => (

@@ -127,7 +127,22 @@ describe('TerminalDirection', () => {
     expect(avatar).toBeInTheDocument();
     expect(avatar.tagName).toBe('IMG');
     expect(avatar).toHaveAttribute('src', '/avatar.jpg');
-    expect(avatar).toHaveAttribute('alt', 'Yikang Wang');
+    // Decorative: the brand link carries the accessible name.
+    expect(avatar).toHaveAttribute('alt', '');
+    expect(avatar).toHaveAttribute('aria-hidden', 'true');
+  });
+
+  it('splits "Phase (dates): description" bullets into a bold phase line', () => {
+    const { container } = renderWith();
+    const phases = container.querySelectorAll('.term-exp .entry ul li .ph');
+    // All four Indeed bullets carry the prefix; Dell/CDW bullets do not.
+    expect(phases.length).toBe(4);
+    expect(phases[0]).toHaveTextContent('Recommendation Systems');
+    expect(phases[0].querySelector('.when')).toHaveTextContent('SWE II, 2025 to present');
+    // Prefix-less bullets fall back to plain text.
+    expect(
+      screen.getByText(/Partnered with Dell stakeholders to define scope/i),
+    ).toBeInTheDocument();
   });
 
   it('renders the project-links note pointing to GitHub', () => {
