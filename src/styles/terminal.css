@@ -23,8 +23,8 @@ body[data-direction='terminal'][data-theme='light'] {
 
 .term {
   font-family: 'Geist Mono', 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, monospace;
-  font-size: 14px;
-  line-height: 1.65;
+  font-size: 14.5px;
+  line-height: 1.7;
 }
 .term .container {
   max-width: 1080px;
@@ -124,7 +124,7 @@ body[data-direction='terminal'][data-theme='light'] {
 
 /* Hero */
 .term .term-hero {
-  padding: 80px 32px 40px;
+  padding: 96px 32px 76px;
   position: relative;
 }
 .term-hero .prompt {
@@ -138,10 +138,10 @@ body[data-direction='terminal'][data-theme='light'] {
 .term-hero h1 {
   font-family: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace;
   font-weight: 500;
-  font-size: clamp(42px, 6.2vw, 80px);
-  letter-spacing: -0.03em;
-  line-height: 1;
-  margin: 0 0 20px;
+  font-size: clamp(40px, 5.8vw, 72px);
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  margin: 0 0 22px;
   color: var(--fg);
 }
 .term-hero h1 .cursor {
@@ -166,10 +166,10 @@ body[data-direction='terminal'][data-theme='light'] {
   margin-bottom: 14px;
 }
 .term-hero .tagline {
-  color: var(--fg);
-  font-size: 18px;
-  max-width: 620px;
-  line-height: 1.5;
+  color: color-mix(in oklab, var(--fg) 92%, transparent);
+  font-size: 16px;
+  max-width: 580px;
+  line-height: 1.75;
   margin-bottom: 32px;
 }
 .term-hero .tagline a {
@@ -230,7 +230,7 @@ body[data-direction='terminal'][data-theme='light'] {
 
 /* Section header (all sections) */
 .term-sec {
-  padding: 60px 0;
+  padding: 84px 0;
   border-top: 1px dashed var(--line);
   position: relative;
 }
@@ -238,7 +238,7 @@ body[data-direction='terminal'][data-theme='light'] {
   display: flex;
   align-items: baseline;
   gap: 14px;
-  margin-bottom: 36px;
+  margin-bottom: 46px;
   flex-wrap: wrap;
 }
 .term-sec .sec-head .num {
@@ -330,7 +330,7 @@ body[data-direction='terminal'][data-theme='light'] {
   display: grid;
   grid-template-columns: 170px 1fr;
   gap: 28px;
-  padding: 22px 0;
+  padding: 28px 0;
   border-top: 1px solid var(--line);
   position: relative;
 }
@@ -371,13 +371,13 @@ body[data-direction='terminal'][data-theme='light'] {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 14px;
 }
 .term-exp .entry ul li {
-  color: color-mix(in oklab, var(--fg) 85%, transparent);
-  font-size: 13px;
-  line-height: 1.65;
-  padding-left: 16px;
+  color: color-mix(in oklab, var(--fg) 80%, transparent);
+  font-size: 13.5px;
+  line-height: 1.7;
+  padding-left: 18px;
   position: relative;
 }
 .term-exp .entry ul li::before {
@@ -385,6 +385,21 @@ body[data-direction='terminal'][data-theme='light'] {
   color: var(--accent);
   position: absolute;
   left: 0;
+}
+/* "Phase Name (dates):" prefix split onto its own bold line */
+.term-exp .entry ul li .ph {
+  display: block;
+  color: var(--fg);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 2px;
+}
+.term-exp .entry ul li .ph .when {
+  color: var(--muted);
+  font-weight: 400;
+  font-size: 11.5px;
+  margin-left: 8px;
+  letter-spacing: 0.02em;
 }
 .term-exp .entry .tags {
   display: flex;
@@ -430,15 +445,17 @@ body[data-direction='terminal'][data-theme='light'] {
 }
 .term-stack .grp .items span {
   font-size: 12px;
-  padding: 4px 8px;
-  border: 1px solid var(--line);
+  padding: 4px 9px;
+  border: 1px solid transparent;
   border-radius: 4px;
-  color: color-mix(in oklab, var(--fg) 88%, transparent);
+  background: color-mix(in oklab, var(--fg) 5%, transparent);
+  color: color-mix(in oklab, var(--fg) 82%, transparent);
   transition: 0.15s;
 }
 .term-stack .grp .items span:hover {
   border-color: var(--accent);
   color: var(--accent);
+  background: color-mix(in oklab, var(--accent) 8%, transparent);
 }
 
 /* Projects */
