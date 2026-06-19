@@ -16,7 +16,8 @@ body[data-direction='terminal'][data-theme='light'] {
   --muted: #6b6f76;
   --line: #e4e0d4;
   --card: #fbf9f3;
-  --accent: #b4590d;
+  /* #a8530c hits ~4.9:1 on --bg (WCAG AA for the small accent text); #b4590d was 4.36:1. */
+  --accent: #a8530c;
   --accent-ink: #fff;
   --link: #7a3d02;
 }

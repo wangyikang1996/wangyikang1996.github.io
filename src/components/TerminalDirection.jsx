@@ -89,27 +89,29 @@ export default function TerminalDirection({ theme, setTheme }) {
 
       <div id="top" />
 
+      {/* No .reveal on the hero: it's the LCP element and must not start hidden
+          waiting on JS — only below-the-fold sections animate in. */}
       <section className="term-hero container">
-        <div className="prompt reveal">
+        <div className="prompt">
           <span className="c">$</span> whoami
         </div>
-        <div className="role reveal d1">
+        <div className="role">
           Software Engineer · Search &amp; Recommendation Systems · Austin, TX
         </div>
-        <h1 className="reveal d1">
+        <h1>
           {S.name}
           <span className="cursor" aria-hidden="true" />
         </h1>
-        <p className="tagline reveal d2">
+        <p className="tagline">
           I build the retrieval and ranking systems behind search and recommendations at{' '}
           <a href="https://www.indeed.com/">Indeed</a>, and keep them fast and reliable.
         </p>
-        <div className="meta reveal d3">
+        <div className="meta">
           <span><span className="k">role</span> SWE II</span>
           <span><span className="k">focus</span> Retrieval · Ranking · A/B testing</span>
           <span><span className="k">edu</span> MS BA · BS CS, UT Austin</span>
         </div>
-        <div className="cta reveal d4">
+        <div className="cta">
           <a className="btn primary" href={`mailto:${S.links.email}`}>→ Get in touch</a>
           <a className="btn" href={S.links.resume}>Resume <IconExternal /></a>
           <a className="btn" href={S.links.github} target="_blank" rel="noreferrer">
